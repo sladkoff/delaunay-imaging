@@ -1,3 +1,5 @@
+package com.sladit.delaunay;
+
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.BoundaryBox;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
@@ -13,6 +15,5 @@ public class SvgMeshRenderer {
         mesh.render(svgGraphics2D);
         return svgGraphics2D.getSVGElement();
     }
-
 
 }

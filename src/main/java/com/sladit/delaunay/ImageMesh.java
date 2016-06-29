@@ -1,3 +1,5 @@
+package com.sladit.delaunay;
+
 import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.BoundaryBox;
@@ -71,7 +73,7 @@ public class ImageMesh extends ConstrainedMesh {
                 int triangleColor = averageColor.getRGB();
                 aTriangle.setProperty(triangleColor);
 
-                aTriangle.displayObject(g, offsetX, offsetY, minX, minY, scaleX, scaleY);
+                aTriangle.displayObject(g, offsetX, offsetY, minX, minY, scaleX, scaleY, false);
             }
         }
     }
