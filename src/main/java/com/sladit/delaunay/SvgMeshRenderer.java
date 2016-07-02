@@ -14,6 +14,7 @@ public class SvgMeshRenderer {
         BoundaryBox boundingBox = mesh.getBoundingBox();
         SVGGraphics2D svgGraphics2D = new SVGGraphics2D((int) boundingBox.getMaxX(), (int) boundingBox.getMaxY());
         mesh.displayObject(svgGraphics2D);
+        svgGraphics2D.setShapeRendering("crispEdges");
         return svgGraphics2D.getSVGElement();
     }
 
