@@ -1,9 +1,11 @@
 package com.sladit.delaunay;
 
+import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.DEdge;
 import org.jdelaunay.delaunay.geometries.DPoint;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +51,30 @@ public class DelaunayHelper {
         //We perform the triangulation
         mesh.processDelaunay();
         return mesh;
+    }
+
+    public static ConstrainedMesh generateRandomMesh(int width, int height, int points) throws DelaunayError {
+        if (width < 1 | height < 1 | points < 1) {
+            throw new IllegalArgumentException("Points integer must be positive.");
+        }
+
+        List<DEdge> toBeAdded = generateRandomEdges(width, height, points);
+
+        //We perform a first sort to gain time during the insertion.
+        Collections.sort(toBeAdded);
+
+        ConstrainedMesh mesh = new ConstrainedMesh();
+        mesh.setEdges(toBeAdded);
+        //We force the integrity of the constraints given as an input.
+        mesh.forceConstraintIntegrity();
+        //We perform the triangulation
+        mesh.processDelaunay();
+        mesh.getTriangleList().forEach(t -> t.setProperty(getRandomColor().getRGB()));
+        return mesh;
+    }
+
+    private static Color getRandomColor() {
+        return new Color(rand.nextInt(51), rand.nextInt(201), rand.nextInt(201));
     }
 
 }

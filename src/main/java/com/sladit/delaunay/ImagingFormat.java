@@ -1,7 +1,5 @@
 package com.sladit.delaunay;
 
-import java.awt.*;
-
 /**
  * Supported image formats that can be generated .
  */
