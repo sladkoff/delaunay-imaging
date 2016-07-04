@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.BoundaryBox;
-import org.jdelaunay.delaunay.geometries.DPoint;
 import org.jdelaunay.delaunay.geometries.DTriangle;
 
 import java.awt.*;
@@ -13,13 +12,13 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Leonid on 19.03.2016.
  */
-public class ImageMesh extends ConstrainedMesh {
+public class ImagingMesh extends ConstrainedMesh {
 
-    private static final Logger log = Logger.getLogger(ImageMesh.class);
+    private static final Logger log = Logger.getLogger(ImagingMesh.class);
 
     private final BufferedImage image;
 
-    public ImageMesh(BufferedImage image) {
+    public ImagingMesh(BufferedImage image) {
         super();
         this.image = image;
     }

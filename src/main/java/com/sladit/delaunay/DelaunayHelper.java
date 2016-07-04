@@ -4,7 +4,9 @@ import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.DEdge;
 import org.jdelaunay.delaunay.geometries.DPoint;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +30,25 @@ public class DelaunayHelper {
             toBeAdded.add(new DEdge(p1, p2));
         }
         return toBeAdded;
+    }
+
+    public static ImagingMesh generateImagingMesh(BufferedImage image, int points) throws DelaunayError {
+        if (points < 1) {
+            throw new IllegalArgumentException("Points integer must be positive.");
+        }
+
+        List<DEdge> toBeAdded = generateRandomEdges(image.getWidth(), image.getHeight(), points);
+
+        //We perform a first sort to gain time during the insertion.
+        Collections.sort(toBeAdded);
+
+        ImagingMesh mesh = new ImagingMesh(image);
+        mesh.setEdges(toBeAdded);
+        //We force the integrity of the constraints given as an input.
+        mesh.forceConstraintIntegrity();
+        //We perform the triangulation
+        mesh.processDelaunay();
+        return mesh;
     }
 
 }
