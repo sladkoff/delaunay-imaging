@@ -7,6 +7,7 @@ import org.jdelaunay.delaunay.geometries.DPoint;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,13 +64,35 @@ public class DelaunayHelper {
         //We perform a first sort to gain time during the insertion.
         Collections.sort(toBeAdded);
 
-        ConstrainedMesh mesh = new ConstrainedMesh();
+        // Generate a random image to feed the imaging mesh.
+        BufferedImage dummyImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        int x = 0, y = 0;
+        while (y < dummyImage.getHeight()) {
+            int randHeight = rand.nextInt(100);
+            if (y + randHeight > dummyImage.getHeight()) randHeight = dummyImage.getHeight() - y;
+            while (x < dummyImage.getWidth()) {
+                int randWidth = rand.nextInt(100);
+                if (x + randWidth > dummyImage.getWidth())  {
+                    randWidth = dummyImage.getWidth() - x;
+                }
+                int[] rgbs = new int[randWidth * randHeight];
+                int randomRgb = getRandomColor().getRGB();
+                for (int r = 0; r < rgbs.length; r++) {
+                    rgbs[r] = randomRgb;
+                }
+                dummyImage.setRGB(x, y, randWidth, randHeight, rgbs, 0, randWidth);
+                x += randWidth;
+            }
+            x = 0;
+            y += randHeight;
+        }
+
+        ConstrainedMesh mesh = new ImagingMesh(dummyImage);
         mesh.setEdges(toBeAdded);
         //We force the integrity of the constraints given as an input.
         mesh.forceConstraintIntegrity();
         //We perform the triangulation
         mesh.processDelaunay();
-        mesh.getTriangleList().forEach(t -> t.setProperty(getRandomColor().getRGB()));
         return mesh;
     }
 

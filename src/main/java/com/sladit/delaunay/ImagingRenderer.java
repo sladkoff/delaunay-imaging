@@ -9,17 +9,48 @@ import java.awt.image.BufferedImage;
  * Created by leonid on 7/4/16.
  */
 public abstract class ImagingRenderer {
-    protected ConstrainedMesh mesh;
+
+    ConstrainedMesh mesh;
+
+    void setMesh(ConstrainedMesh mesh) {
+        this.mesh = mesh;
+    }
+
+    ConstrainedMesh getMesh() {
+        return mesh;
+    }
+
+    public ImagingRenderer() {
+
+    }
+
+    public ImagingRenderer(BufferedImage image, int points) throws DelaunayError {
+        generateMesh(image, points);
+    }
 
     /**
-     * Initialize a new ImageRenderer with a BufferedImage.
+     * Generates a colored mesh from an image.
      *
-     * @param image Triangles of this mesh will be colored from this image.
-     * @param points Number of points for Delaunay calculation.
+     * @param image
+     * @param points
      * @throws DelaunayError
      */
-    public ImagingRenderer(BufferedImage image, int points) throws DelaunayError {
+    public ImagingRenderer generateMesh(BufferedImage image, int points) throws DelaunayError {
         mesh = DelaunayHelper.generateImagingMesh(image, points);
+        return this;
+    }
+
+    /**
+     * Generates a randomly colored mesh with the given parameters.
+     *
+     * @param width
+     * @param height
+     * @param points
+     * @throws DelaunayError
+     */
+    public ImagingRenderer generateMesh(int width, int height, int points) throws DelaunayError {
+        mesh = DelaunayHelper.generateRandomMesh(width, height, points);
+        return this;
     }
 
     /**
@@ -28,29 +59,23 @@ public abstract class ImagingRenderer {
      * @return Output file bytes.
      * @throws DelaunayError
      */
-    public abstract byte[] generate() throws DelaunayError;
+    public abstract byte[] generateImage() throws DelaunayError;
 
     /**
      * Returns a default ImagingRenderer instance for a specified format.
+     *
      * @param format The output format.
-     * @param image The image for initialization.
-     * @param points The number of points.
      * @return
      */
-    public static ImagingRenderer getRenderer(ImagingFormat format, BufferedImage image, int points) {
-        try {
-            switch (format) {
-                case SVG:
-                    return new SvgRenderer(image, points);
-                case PNG:
-                    return new PngRenderer(image, points);
-                default: {
-                    throw new IllegalArgumentException("Unsupported imaging format");
-                }
+    public static ImagingRenderer getRenderer(ImagingFormat format) {
+        switch (format) {
+            case SVG:
+                return new SvgRenderer();
+            case PNG:
+                return new PngRenderer();
+            default: {
+                throw new IllegalArgumentException("Unsupported imaging format");
             }
-        } catch (DelaunayError delaunayError) {
-            delaunayError.printStackTrace();
-            return null;
         }
     }
 

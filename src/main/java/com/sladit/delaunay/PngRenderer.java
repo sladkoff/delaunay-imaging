@@ -14,14 +14,11 @@ import java.io.IOException;
  */
 public class PngRenderer extends ImagingRenderer {
 
-    public PngRenderer(BufferedImage image, int points) throws DelaunayError {
-        super(image, points);
-    }
-
     @Override
-    public byte[] generate() throws DelaunayError {
+    public byte[] generateImage() throws DelaunayError {
+        if (mesh == null) throw new IllegalStateException("Mesh must be generated first");
         BoundaryBox box = mesh.getBoundingBox();
-        BufferedImage bi = new BufferedImage((int) box.getMaxX(), (int) box.getMaxX(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bi = new BufferedImage((int) box.getMaxX(), (int) box.getMaxY(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = bi.createGraphics();
         mesh.displayObject(graphics);
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
