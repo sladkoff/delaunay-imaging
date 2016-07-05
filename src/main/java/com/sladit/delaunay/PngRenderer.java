@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by leonid on 7/4/16.
+ * {@link org.jdelaunay.delaunay.ConstrainedMesh} to PNG renderer.
  */
 public class PngRenderer extends ImagingRenderer {
 

@@ -6,7 +6,9 @@ import org.jdelaunay.delaunay.error.DelaunayError;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by leonid on 7/4/16.
+ * The abstract ImagingRenderer base class.
+ * A renderer is responsible for generating an image output from a {@link ConstrainedMesh}.
+ * Subclasses must implement the {@link #generateImage()} method.
  */
 public abstract class ImagingRenderer {
 

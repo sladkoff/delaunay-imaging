@@ -5,7 +5,7 @@ import org.jdelaunay.delaunay.geometries.BoundaryBox;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
 
 /**
- * Created by Leonid on 19.03.2016.
+ * {@link org.jdelaunay.delaunay.ConstrainedMesh} to SVG renderer.
  */
 public class SvgRenderer extends ImagingRenderer {
 

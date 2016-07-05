@@ -14,20 +14,38 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by leonid on 6/29/16.
+ * Helper Class for generating jdelaunay meshes.
  */
 public class DelaunayHelper {
+
     private static final Random rand = new Random();
 
+    /**
+     * Initializes a random 2D DPoint within specified bounds.
+     *
+     * @param maxX
+     * @param maxY
+     * @return Random DPoint
+     * @throws DelaunayError
+     */
     public static DPoint getRandomDPoint(int maxX, int maxY) throws DelaunayError {
         double x = rand.nextInt(maxX);
         double y = rand.nextInt(maxY);
         return new DPoint(x, y, 0);
     }
 
-    public static List<DEdge> generateRandomEdges(int maxWidth, int maxHeight, int points) throws DelaunayError {
+    /**
+     * Initializes a List of a specified amount of random DEdges within specified bounds.
+     *
+     * @param maxWidth
+     * @param maxHeight
+     * @param edges     Number of edges to create.
+     * @return List of DEdge
+     * @throws DelaunayError
+     */
+    public static List<DEdge> generateRandomEdges(int maxWidth, int maxHeight, int edges) throws DelaunayError {
         ArrayList<DEdge> toBeAdded = new ArrayList<>();
-        for (long i = 0; i < points; i++) {
+        for (long i = 0; i < edges; i++) {
             DPoint p1 = getRandomDPoint(maxWidth, maxHeight);
             DPoint p2 = getRandomDPoint(maxWidth, maxHeight);
             toBeAdded.add(new DEdge(p1, p2));
@@ -35,12 +53,20 @@ public class DelaunayHelper {
         return toBeAdded;
     }
 
-    public static ImagingMesh generateImagingMesh(BufferedImage image, int points) throws DelaunayError {
-        if (points < 1) {
-            throw new IllegalArgumentException("Points integer must be positive.");
+    /**
+     * Creates an {@link ImagingMesh} from an image with the specified number of initial edges.
+     *
+     * @param image
+     * @param edges
+     * @return
+     * @throws DelaunayError
+     */
+    public static ImagingMesh generateImagingMesh(BufferedImage image, int edges) throws DelaunayError {
+        if (edges < 1) {
+            throw new IllegalArgumentException("Edges parameter must be positive.");
         }
 
-        List<DEdge> toBeAdded = generateRandomEdges(image.getWidth(), image.getHeight(), points);
+        List<DEdge> toBeAdded = generateRandomEdges(image.getWidth(), image.getHeight(), edges);
 
         //We perform a first sort to gain time during the insertion.
         Collections.sort(toBeAdded);
@@ -54,12 +80,22 @@ public class DelaunayHelper {
         return mesh;
     }
 
-    public static ConstrainedMesh generateRandomMesh(int width, int height, int points) throws DelaunayError {
-        if (width < 1 | height < 1 | points < 1) {
-            throw new IllegalArgumentException("Points integer must be positive.");
+    /**
+     * Creates a random {@link ImagingMesh} with the specified dimensions and number of initial edges.
+     * The color of the mesh is generated randomly from a dummy buffered image.
+     *
+     * @param width
+     * @param height
+     * @param edges
+     * @return
+     * @throws DelaunayError
+     */
+    public static ConstrainedMesh generateRandomMesh(int width, int height, int edges) throws DelaunayError {
+        if (width < 1 | height < 1 | edges < 1) {
+            throw new IllegalArgumentException("Edges parameter must be positive.");
         }
 
-        List<DEdge> toBeAdded = generateRandomEdges(width, height, points);
+        List<DEdge> toBeAdded = generateRandomEdges(width, height, edges);
 
         //We perform a first sort to gain time during the insertion.
         Collections.sort(toBeAdded);
@@ -69,10 +105,10 @@ public class DelaunayHelper {
         int x = 0, y = 0;
         while (y < dummyImage.getHeight()) {
             int randHeight = rand.nextInt(100);
-            if (y + randHeight > dummyImage.getHeight()) randHeight = dummyImage.getHeight() - y;
+            if (y + randHeight > dummyImage.getHeight()) { randHeight = dummyImage.getHeight() - y; }
             while (x < dummyImage.getWidth()) {
                 int randWidth = rand.nextInt(100);
-                if (x + randWidth > dummyImage.getWidth())  {
+                if (x + randWidth > dummyImage.getWidth()) {
                     randWidth = dummyImage.getWidth() - x;
                 }
                 int[] rgbs = new int[randWidth * randHeight];
@@ -96,6 +132,11 @@ public class DelaunayHelper {
         return mesh;
     }
 
+    /**
+     * Generates a random blue-greenish color.
+     *
+     * @return Color
+     */
     private static Color getRandomColor() {
         return new Color(rand.nextInt(51), rand.nextInt(201), rand.nextInt(201));
     }

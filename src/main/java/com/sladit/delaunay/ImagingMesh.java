@@ -10,7 +10,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by Leonid on 19.03.2016.
+ * A {@link ConstrainedMesh} which is initialized with a Buffered image. The color of each triangle is then
+ * averaged from the respective part of the image. The {@link #displayObject(Graphics)} method also aligns the result
+ * in a way that cuts of the border 'irregularities' of the Delaunay Triangulation.
+ *
+ * TODO Better exception handling.
  */
 public class ImagingMesh extends ConstrainedMesh {
 
