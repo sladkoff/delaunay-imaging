@@ -16,6 +16,10 @@ public class SvgRenderer extends ImagingRenderer {
         SVGGraphics2D svgGraphics2D = new SVGGraphics2D((int) boundingBox.getMaxX(), (int) boundingBox.getMaxY());
         mesh.displayObject(svgGraphics2D);
         svgGraphics2D.setShapeRendering("crispEdges");
+        svgGraphics2D.setViewBox(0, 0, svgGraphics2D.getWidth(), svgGraphics2D.getHeight());
+        svgGraphics2D.setPrintDimensions(false);
+        svgGraphics2D.setPreserveAspectRatio("xMidYMid", "slice");
+
         return svgGraphics2D.getSVGElement().getBytes();
     }
 }
