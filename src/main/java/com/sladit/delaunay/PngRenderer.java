@@ -1,5 +1,6 @@
 package com.sladit.delaunay;
 
+import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.BoundaryBox;
 
@@ -12,10 +13,9 @@ import java.io.IOException;
 /**
  * {@link org.jdelaunay.delaunay.ConstrainedMesh} to PNG renderer.
  */
-public class PngRenderer extends ImagingRenderer {
+class PngRenderer {
 
-    @Override
-    public byte[] generateImage() throws DelaunayError {
+    static byte[] generateImage(ConstrainedMesh mesh) throws DelaunayError {
         if (mesh == null) throw new IllegalStateException("Mesh must be generated first");
         BoundaryBox box = mesh.getBoundingBox();
         BufferedImage bi = new BufferedImage((int) box.getMaxX(), (int) box.getMaxY(), BufferedImage.TYPE_INT_ARGB);

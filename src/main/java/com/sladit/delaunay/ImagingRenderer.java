@@ -8,9 +8,8 @@ import java.awt.image.BufferedImage;
 /**
  * The abstract ImagingRenderer base class.
  * A renderer is responsible for generating an image output from a {@link ConstrainedMesh}.
- * Subclasses must implement the {@link #generateImage()} method.
  */
-public abstract class ImagingRenderer {
+public class ImagingRenderer {
 
     ConstrainedMesh mesh;
 
@@ -61,20 +60,12 @@ public abstract class ImagingRenderer {
      * @return Output file bytes.
      * @throws DelaunayError
      */
-    public abstract byte[] generateImage() throws DelaunayError;
-
-    /**
-     * Returns a default ImagingRenderer instance for a specified format.
-     *
-     * @param format The output format.
-     * @return
-     */
-    public static ImagingRenderer getRenderer(ImagingFormat format) {
+    public byte[] generateImage(ImagingFormat format) throws DelaunayError {
         switch (format) {
             case SVG:
-                return new SvgRenderer();
+                return SvgRenderer.generateImage(mesh);
             case PNG:
-                return new PngRenderer();
+                return PngRenderer.generateImage(mesh);
             default: {
                 throw new IllegalArgumentException("Unsupported imaging format");
             }

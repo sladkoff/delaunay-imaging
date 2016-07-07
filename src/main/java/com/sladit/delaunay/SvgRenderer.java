@@ -1,5 +1,6 @@
 package com.sladit.delaunay;
 
+import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.BoundaryBox;
 import org.jfree.graphics2d.svg.SVGGraphics2D;
@@ -7,10 +8,9 @@ import org.jfree.graphics2d.svg.SVGGraphics2D;
 /**
  * {@link org.jdelaunay.delaunay.ConstrainedMesh} to SVG renderer.
  */
-public class SvgRenderer extends ImagingRenderer {
+class SvgRenderer {
 
-    @Override
-    public byte[] generateImage() throws DelaunayError {
+    public static byte[] generateImage(ConstrainedMesh mesh) throws DelaunayError {
         if (mesh == null) throw new IllegalStateException("Mesh must be generated first.");
         BoundaryBox boundingBox = mesh.getBoundingBox();
         SVGGraphics2D svgGraphics2D = new SVGGraphics2D((int) boundingBox.getMaxX(), (int) boundingBox.getMaxY());

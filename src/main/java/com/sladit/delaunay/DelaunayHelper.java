@@ -28,7 +28,7 @@ public class DelaunayHelper {
      * @return Random DPoint
      * @throws DelaunayError
      */
-    public static DPoint getRandomDPoint(int maxX, int maxY) throws DelaunayError {
+    static DPoint getRandomDPoint(int maxX, int maxY) throws DelaunayError {
         double x = rand.nextInt(maxX);
         double y = rand.nextInt(maxY);
         return new DPoint(x, y, 0);
@@ -43,7 +43,7 @@ public class DelaunayHelper {
      * @return List of DEdge
      * @throws DelaunayError
      */
-    public static List<DEdge> generateRandomEdges(int maxWidth, int maxHeight, int edges) throws DelaunayError {
+    static List<DEdge> generateRandomEdges(int maxWidth, int maxHeight, int edges) throws DelaunayError {
         ArrayList<DEdge> toBeAdded = new ArrayList<>();
         for (long i = 0; i < edges; i++) {
             DPoint p1 = getRandomDPoint(maxWidth, maxHeight);
