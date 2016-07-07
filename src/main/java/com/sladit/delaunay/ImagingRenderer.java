@@ -13,11 +13,11 @@ public class ImagingRenderer {
 
     ConstrainedMesh mesh;
 
-    void setMesh(ConstrainedMesh mesh) {
+    public void setMesh(ConstrainedMesh mesh) {
         this.mesh = mesh;
     }
 
-    ConstrainedMesh getMesh() {
+    public ConstrainedMesh getMesh() {
         return mesh;
     }
 
@@ -27,6 +27,10 @@ public class ImagingRenderer {
 
     public ImagingRenderer(BufferedImage image, int points) throws DelaunayError {
         generateMesh(image, points);
+    }
+
+    public ImagingRenderer(ConstrainedMesh mesh) {
+        this.mesh = mesh;
     }
 
     /**
