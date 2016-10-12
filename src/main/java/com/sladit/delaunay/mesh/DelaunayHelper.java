@@ -1,4 +1,4 @@
-package com.sladit.delaunay;
+package com.sladit.delaunay.mesh;
 
 import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
@@ -7,7 +7,6 @@ import org.jdelaunay.delaunay.geometries.DPoint;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,7 +104,9 @@ public class DelaunayHelper {
         int x = 0, y = 0;
         while (y < dummyImage.getHeight()) {
             int randHeight = rand.nextInt(100);
-            if (y + randHeight > dummyImage.getHeight()) { randHeight = dummyImage.getHeight() - y; }
+            if (y + randHeight > dummyImage.getHeight()) {
+                randHeight = dummyImage.getHeight() - y;
+            }
             while (x < dummyImage.getWidth()) {
                 int randWidth = rand.nextInt(100);
                 if (x + randWidth > dummyImage.getWidth()) {

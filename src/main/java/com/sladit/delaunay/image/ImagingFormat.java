@@ -1,4 +1,4 @@
-package com.sladit.delaunay;
+package com.sladit.delaunay.image;
 
 /**
  * Supported image formats that can be generated .
@@ -19,8 +19,8 @@ public enum ImagingFormat {
     }
 
     public static ImagingFormat getImagingFormat(String value) {
-        for(ImagingFormat v : values())
-            if(v.toString().equalsIgnoreCase(value)) return v;
+        for (ImagingFormat v : values())
+            if (v.toString().equalsIgnoreCase(value)) return v;
         throw new IllegalArgumentException();
     }
 

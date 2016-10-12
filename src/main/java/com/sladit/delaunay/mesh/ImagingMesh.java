@@ -1,6 +1,5 @@
-package com.sladit.delaunay;
+package com.sladit.delaunay.mesh;
 
-import org.apache.log4j.Logger;
 import org.jdelaunay.delaunay.ConstrainedMesh;
 import org.jdelaunay.delaunay.error.DelaunayError;
 import org.jdelaunay.delaunay.geometries.BoundaryBox;
@@ -17,8 +16,6 @@ import java.awt.image.BufferedImage;
  * TODO Better exception handling.
  */
 public class ImagingMesh extends ConstrainedMesh {
-
-    private static final Logger log = Logger.getLogger(ImagingMesh.class);
 
     private final BufferedImage image;
 
